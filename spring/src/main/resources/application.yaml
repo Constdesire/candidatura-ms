@@ -1,0 +1,35 @@
+server:
+  port: ${SERVER_PORT:8086}
+
+spring:
+  application:
+    name: candidatura
+  # banco PRÓPRIO deste microsserviço MongoDB candidaturas e seus status
+  mongodb:
+    uri: ${MONGO_URI:mongodb+srv://desireecabarboza_db_user:18bEN7reDLjd7jX6@cluster1.ikbbpjl.mongodb.net/candidatura_db?appName=Cluster1}
+    auto-index-creation: true   # cria o índice único
+  rabbitmq:
+    host: ${RABBITMQ_HOST:jaragua.lmq.cloudamqp.com}
+    port: ${RABBITMQ_PORT:5671}
+    username: ${RABBITMQ_USER:bxvkfpaf}
+    password: ${RABBITMQ_PASSWORD:CpFLf94no4QuOYqQZJTPm0ApyJanUeYY}
+    virtual-host: ${RABBITMQ_VHOST:bxvkfpaf}
+    ssl:
+      enabled: true
+    listener:
+      simple:
+        default-requeue-rejected: false
+
+event:
+  candidatura-criada:
+    exchange: ex-candidatura-criada
+    queue: candidatura-criada
+  candidatura-resultado:
+    exchange: ex-candidatura-resultado
+    queue: candidatura-resultado
+
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %-5level [%thread] %msg%n"
+  level:
+    com.fatec: INFO
