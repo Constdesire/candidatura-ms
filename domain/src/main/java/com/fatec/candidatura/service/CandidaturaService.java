@@ -13,6 +13,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+/**
+ * Regras das candidaturas. Classe comum (sem @Service), como o LoginService: o módulo spring a cria em
+ * config/CandidaturaServiceConfig.
+ */
 public class CandidaturaService {
 
     private static final Logger log = LoggerFactory.getLogger(CandidaturaService.class);
@@ -26,8 +30,8 @@ public class CandidaturaService {
     }
 
     /**
-     * "Aguarde, vou verificar" grava a candidatura como PENDENTE, publica o evento e responde na hora.
-     * Quem decide se há vaga é o reducao-ms o resultado volta por outro evento (aplicarResultado).
+     * "Aguarde, vou verificar": grava a candidatura como PENDENTE, publica o evento e responde na hora.
+     * Quem decide se há vaga é o vagas-ms; o resultado volta por outro evento (aplicarResultado).
      */
     public Candidatura candidatar(String usuario, Long vagaId) {
         if (vagaId == null) {
@@ -40,7 +44,7 @@ public class CandidaturaService {
         try {
             candidatura = repository.save(Candidatura.nova(usuario, vagaId));
         } catch (CandidaturaDuplicadaException ex) {
-            // dois pedidos iguais ao mesmo tempo o índice único do banco barra o segundo
+            // dois pedidos iguais ao mesmo tempo: o índice único do banco barra o segundo
             throw new RegraNegocioException("Você já se candidatou a esta vaga");
         }
         log.info("[CANDIDATURA] {} se candidatou à vaga #{} -> PENDENTE gravada no MongoDB (candidatura_db)", usuario, vagaId);
@@ -48,14 +52,14 @@ public class CandidaturaService {
         try {
             publicador.enviar(new CandidaturaCriadaEvent(candidatura.id(), vagaId, usuario));
         } catch (RuntimeException ex) {
-            repository.delete(candidatura); // não deixa candidatura presa em análise
+            repository.delete(candidatura); // não deixa candidatura "presa" em análise
             log.error("[CANDIDATURA] falha ao publicar no RabbitMQ; candidatura desfeita", ex);
             throw new RegraNegocioException("Não foi possível enviar sua candidatura agora. Tente novamente.");
         }
         return candidatura;
     }
 
-    /** Chegou a resposta do reducao-ms atualiza o status e o valor cobrado da candidatura. */
+    /** Chegou a resposta do vagas-ms: atualiza o status (e o valor cobrado) da candidatura. */
     public void aplicarResultado(CandidaturaResultadoEvent e) {
         repository.findById(e.candidaturaId()).ifPresentOrElse(c -> {
             if (c.status() != StatusCandidatura.PENDENTE) {

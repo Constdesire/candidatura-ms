@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-/** Implementa a porta do domain usando MongoDB . */
+/** Implementa a porta do domain usando MongoDB (o domain não sabe disso). */
 @Repository
 public class CandidaturaRepositoryImpl implements CandidaturaRepository {
 
@@ -26,6 +26,7 @@ public class CandidaturaRepositoryImpl implements CandidaturaRepository {
             return CandidaturaRepositoryAdapter.castOrm(
                     mongo.save(CandidaturaRepositoryAdapter.castEntity(candidatura)));
         } catch (DuplicateKeyException ex) {
+            // índice único (usuario + vagaId) do MongoDB barrou a candidatura repetida
             throw new CandidaturaDuplicadaException();
         }
     }

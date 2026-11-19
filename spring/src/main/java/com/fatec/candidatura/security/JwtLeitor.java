@@ -11,8 +11,8 @@ import javax.crypto.SecretKey;
 import java.util.List;
 
 /**
- * O gateway já valida o token. Aqui só descobrimos QUEM é o usuário  e o perfil ,
- * usando a mesma chave do login e do gateway .
+ * O gateway já valida o token. Aqui só descobrimos QUEM é o usuário (subject do JWT) e o perfil (claim "roles"),
+ * usando a mesma chave do login (JwtSecurity) e do gateway (JwtDecoderConfig).
  */
 @Component
 public class JwtLeitor {

@@ -8,8 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.math.BigDecimal;
 
 /**
- * Versão do banco da Candidatura candidaturas no MongoDB.
- * O índice único usuario + vagaId garante UMA candidatura por pessoa por vaga,
+ * Versão "do banco" da Candidatura (coleção candidaturas no MongoDB), no mesmo formato do LoginOrmMongo.
+ * O índice único (usuario + vagaId) garante UMA candidatura por pessoa por vaga,
  * mesmo que dois pedidos iguais cheguem ao mesmo tempo.
  */
 @Document(collection = "candidaturas")

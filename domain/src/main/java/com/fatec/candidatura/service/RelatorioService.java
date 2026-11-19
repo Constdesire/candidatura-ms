@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-/** Relatório de vendas das vagas quanto cada vaga e cada mês renderam. */
+/** Relatório de "vendas das vagas": quanto cada vaga e cada mês renderam. */
 public class RelatorioService {
 
     private static final ZoneId FUSO = ZoneId.of("America/Sao_Paulo");
@@ -45,7 +45,7 @@ public class RelatorioService {
                         .thenComparing(PorVaga::vagaId))
                 .toList();
 
-        // por mês da aula só entram candidaturas já respondidas têm a data da vaga
+        // por mês da aula: só entram candidaturas já respondidas (têm a data da vaga)
         Map<YearMonth, List<Candidatura>> deCadaMes = todas.stream()
                 .filter(c -> c.vagaInicioEm() != null)
                 .collect(Collectors.groupingBy(
@@ -77,7 +77,7 @@ public class RelatorioService {
         return (int) lista.stream().filter(c -> c.status() == status).count();
     }
 
-    // receita  soma do valor cobrado de quem CONFIRMOU a vaga
+    // receita = soma do valor cobrado de quem CONFIRMOU a vaga
     private BigDecimal receita(List<Candidatura> lista) {
         return lista.stream()
                 .filter(c -> c.status() == StatusCandidatura.CONFIRMADA && c.valor() != null)

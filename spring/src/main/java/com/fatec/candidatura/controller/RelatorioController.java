@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Relatório de vendas das vagas
- * o gateway só expõe esta rota em /fatec/admin/relatorio (exige ROLE_ADMIN).
- * o serviço confere o perfil no token exigirAdmin.
+ * Relatório de vendas das vagas: SÓ O ADMIN.
+ * Barreira 1: o gateway só expõe esta rota em /fatec/admin/relatorio (exige ROLE_ADMIN).
+ * Barreira 2: o serviço confere o perfil no token (exigirAdmin).
  */
 @RestController
 @RequestMapping("/relatorio")

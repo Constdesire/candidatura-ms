@@ -28,7 +28,7 @@ public class CandidaturaController {
         this.jwtLeitor = jwtLeitor;
     }
 
-    // 202 Accepted o pedido foi aceito, mas ainda será verificado (assíncrono)
+    // 202 Accepted: o pedido foi aceito, mas ainda será verificado (assíncrono)
     @PostMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     public CandidaturaResponse candidatar(@RequestBody CandidaturaRequest request,
@@ -37,7 +37,7 @@ public class CandidaturaController {
         return CandidaturaControllerAdapter.castResponse(service.candidatar(usuario, request.vagaId()));
     }
 
-    // tela status da minha vaga
+    // tela "status da minha vaga"
     @GetMapping("/minhas")
     public List<CandidaturaResponse> minhas(
             @RequestHeader(value = "Authorization", required = false) String authorization) {

@@ -3,7 +3,7 @@ package com.fatec.candidatura.entity;
 import java.math.BigDecimal;
 import java.util.List;
 
-/** Relatório de vendas das vagas . */
+/** Relatório de vendas das vagas (só o ADMIN vê). */
 public record Relatorio(
         int totalCandidaturas,
         int confirmadas,

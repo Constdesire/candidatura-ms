@@ -5,10 +5,10 @@ import com.fatec.candidatura.entity.Candidatura;
 import java.util.List;
 import java.util.Optional;
 
-/** Porta de saída do domain */
+/** Porta de saída do domain: quem implementa (MongoDB) está no módulo spring. */
 public interface CandidaturaRepository {
 
-    /** Grava gera o id se for nova. Se já existe candidatura da pessoa para a vaga, lança CandidaturaDuplicadaException. */
+    /** Grava (gera o id se for nova). Se já existe candidatura da pessoa para a vaga, lança CandidaturaDuplicadaException. */
     Candidatura save(Candidatura candidatura);
 
     void delete(Candidatura candidatura);

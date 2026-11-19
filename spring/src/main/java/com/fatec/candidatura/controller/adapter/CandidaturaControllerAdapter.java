@@ -5,7 +5,7 @@ import com.fatec.candidatura.controller.dto.response.RelatorioResponse;
 import com.fatec.candidatura.entity.Candidatura;
 import com.fatec.candidatura.entity.Relatorio;
 
-/** Converte as classes do domain no JSON da API (dto) */
+/** Converte as classes do domain no JSON da API (dto), como o LoginControllerAdapter. */
 public class CandidaturaControllerAdapter {
     private CandidaturaControllerAdapter() {
     }

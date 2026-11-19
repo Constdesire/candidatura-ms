@@ -25,7 +25,7 @@ public class CandidaturaRepositoryAdapter {
         );
     }
 
-    /** Candidatura nova ainda não tem id geramos um UUID */
+    /** Candidatura nova ainda não tem id: geramos um UUID, igual ao LoginControllerAdapter faz no login. */
     public static CandidaturaOrmMongo castEntity(Candidatura entity) {
         return new CandidaturaOrmMongo(
                 entity.id() != null ? entity.id() : UUID.randomUUID().toString(),

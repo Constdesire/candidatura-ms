@@ -14,7 +14,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Este serviço PUBLICA em candidatura-criada e CONSOME candidatura-resultado.
+ * Mesmo padrão da aula (Queue + DirectExchange + Binding com a routing key = nome da fila).
+ * Este serviço PUBLICA em "candidatura-criada" e CONSOME "candidatura-resultado".
+ * As declarações são idempotentes (o vagas-ms declara as mesmas), então a ordem de subida não importa.
  */
 @Configuration
 public class RabbitMqConfig {

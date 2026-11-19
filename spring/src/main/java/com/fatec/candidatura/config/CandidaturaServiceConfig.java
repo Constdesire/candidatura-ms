@@ -7,6 +7,7 @@ import com.fatec.candidatura.service.RelatorioService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/** Cria os services (classes do domain) como beans do Spring, igual ao LoginServiceConfig do login. */
 @Configuration
 public class CandidaturaServiceConfig {
 
